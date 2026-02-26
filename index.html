@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Southern Cross 4X4 Club</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --red:#0070d1;--orange:#0070d1;--dark:#0c131c;--dark2:#0f1a26;--dark3:#132030;
+    --text:#e8e0d0;--muted:#8a9bb0;--gold:#4fa8f0;
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:var(--text);line-height:1.6;}
+
+  /* NAV */
+  nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(13,13,13,.92);backdrop-filter:blur(8px);border-bottom:1px solid #2a2a2a;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+  .logo{display:flex;align-items:center;gap:.6rem;padding:.8rem 0;}
+  .logo-icon{font-size:1.8rem;}
+  .logo-text{font-size:1.1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+  .logo-text span{color:var(--red);}
+  nav ul{list-style:none;display:flex;gap:2rem;}
+  nav ul a{color:var(--muted);text-decoration:none;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;transition:.2s;}
+  nav ul a:hover{color:var(--gold);}
+
+  /* HERO */
+  #hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:url('img/hilux-blue-rag.png') center/cover no-repeat fixed;width:100%;}
+  .hero-bg::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='1' height='1' fill='rgba(0,0,0,0.35)'/%3E%3C/svg%3E");background-size:4px 4px;}
+  .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom, rgba(12,19,28,.2) 0%, rgba(12,19,28,.55) 60%, var(--dark) 100%);}
+  .hero-content{position:relative;z-index:1;max-width:800px;padding:2rem;}
+  .hero-badge{display:inline-block;background:var(--red);color:#fff;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;padding:.3rem 1rem;border-radius:2px;margin-bottom:1.5rem;}
+  h1{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;text-transform:uppercase;letter-spacing:.05em;line-height:1.05;text-shadow:0 4px 30px rgba(0,0,0,.8);}
+  h1 em{font-style:normal;color:var(--gold);}
+  .hero-sub{margin:1.5rem 0 2.5rem;color:#ccc;font-size:1.15rem;max-width:550px;margin-left:auto;margin-right:auto;}
+  .btn{display:inline-block;padding:.85rem 2.2rem;border-radius:3px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.85rem;text-decoration:none;transition:.25s;cursor:pointer;border:none;}
+  .btn-primary{background:var(--red);color:#fff;}
+  .btn-primary:hover{background:#a93226;}
+  .btn-outline{background:transparent;color:var(--text);border:1px solid #555;margin-left:.8rem;}
+  .btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+  .scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:var(--muted);font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;animation:bounce 2s infinite;}
+  @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+
+  /* SECTIONS */
+  section{padding:5rem 2rem;}
+  .container{max-width:1100px;margin:0 auto;}
+  .section-label{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem;}
+  .section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:1rem;}
+  .section-title span{color:var(--gold);}
+  .divider{width:60px;height:3px;background:var(--red);margin:1.5rem 0;}
+
+  /* TRIPS */
+  #trips{background:var(--dark2);}
+  .trips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem;}
+  .trip-card{background:var(--dark3);border-radius:6px;overflow:hidden;border:1px solid #2d2d2d;transition:.3s;}
+  .trip-card:hover{transform:translateY(-4px);border-color:#444;}
+  .trip-img{height:210px;background-size:cover;background-position:center;position:relative;}
+  .trip-tag{position:absolute;top:1rem;left:1rem;background:var(--red);color:#fff;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;padding:.25rem .7rem;border-radius:2px;}
+  .trip-body{padding:1.5rem;}
+  .trip-body h3{font-size:1.15rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;}
+  .trip-meta{display:flex;gap:1rem;font-size:.78rem;color:var(--muted);margin-bottom:.8rem;}
+  .trip-meta span::before{margin-right:.3rem;}
+  .trip-body p{font-size:.9rem;color:#aaa;line-height:1.6;}
+
+  /* VALUES */
+  #values{background:var(--dark);}
+  .values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:3rem;}
+  .value-card{background:var(--dark3);border:1px solid #2a2a2a;border-top:3px solid var(--red);border-radius:4px;padding:2rem 1.5rem;}
+  .value-icon{font-size:2.2rem;margin-bottom:1rem;}
+  .value-card h3{font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem;color:var(--gold);}
+  .value-card p{font-size:.88rem;color:#999;line-height:1.65;}
+
+  /* JOIN */
+  #join{background:var(--dark2);}
+  .join-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+  .join-intro p{color:#999;margin-bottom:1rem;font-size:.95rem;}
+  .perks{margin-top:1.5rem;display:flex;flex-direction:column;gap:.8rem;}
+  .perk{display:flex;align-items:center;gap:.8rem;font-size:.9rem;color:#bbb;}
+  .perk::before{content:'✔';color:var(--gold);font-size:.8rem;flex-shrink:0;}
+  form{background:var(--dark3);border:1px solid #2a2a2a;border-radius:6px;padding:2rem;}
+  .form-group{margin-bottom:1.2rem;}
+  label{display:block;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+  input,select,textarea{width:100%;background:#111;border:1px solid #333;color:var(--text);padding:.7rem 1rem;border-radius:4px;font-size:.9rem;transition:.2s;font-family:inherit;}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red);}
+  textarea{resize:vertical;min-height:90px;}
+  select option{background:#111;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .submit-btn{width:100%;background:var(--red);color:#fff;padding:.9rem;border-radius:4px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;font-size:.9rem;transition:.25s;margin-top:.5rem;}
+  .submit-btn:hover{background:#a93226;}
+
+  /* CONTACT */
+  #contact{background:var(--dark);border-top:1px solid #1e1e1e;}
+  .contact-wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:2rem;}
+  .contact-brand .logo-text{font-size:1.3rem;}
+  .contact-brand p{color:var(--muted);font-size:.85rem;margin-top:.4rem;}
+  .social-links{display:flex;gap:1rem;}
+  .social-links a{display:flex;align-items:center;justify-content:center;width:42px;height:42px;background:#1e1e1e;border-radius:50%;color:var(--muted);text-decoration:none;font-size:1.1rem;transition:.2s;border:1px solid #2d2d2d;}
+  .social-links a:hover{background:var(--red);color:#fff;border-color:var(--red);}
+  .contact-info{display:flex;flex-direction:column;gap:.5rem;text-align:right;}
+  .contact-info a{color:var(--muted);text-decoration:none;font-size:.85rem;}
+  .contact-info a:hover{color:var(--gold);}
+  .copyright{text-align:center;color:#444;font-size:.75rem;margin-top:3rem;padding-top:2rem;border-top:1px solid #1e1e1e;}
+
+  @media(max-width:700px){
+    nav ul{display:none;}
+    .join-wrap{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .contact-info{text-align:left;}
+  }
+
+  /* success */
+  .success-msg{display:none;background:#1a3a1a;border:1px solid #2e7d32;color:#a5d6a7;padding:1rem;border-radius:4px;text-align:center;margin-top:1rem;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <span class="logo-icon">🌐</span>
+    <span class="logo-text"><span>Southern Cross</span> 4X4</span>
+  </div>
+  <ul>
+    <li><a href="#trips">Trips</a></li>
+    <li><a href="#values">Values</a></li>
+    <li><a href="#join">Join</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">4WD Club in Werribee</div>
+    <h1>Driven by Adventure. <em>Backed by Mates.</em></h1>
+    <p class="hero-sub">Southern Cross 4X4 Club — where serious off-roaders come together to explore tracks less travelled, support one another on the trail, and celebrate the freedom of the outdoors.</p>
+    <a href="#join" class="btn btn-primary">Apply to Join</a>
+    <a href="#trips" class="btn btn-outline">See Our Trips</a>
+  </div>
+  <div class="scroll-hint">↓ Scroll to explore</div>
+</section>
+
+<!-- TRIPS -->
+<section id="trips">
+  <div class="container">
+    <div class="section-label">Where We've Been</div>
+    <h2 class="section-title">Featured <span>Trips</span></h2>
+    <div class="divider"></div>
+    <p style="color:#999;max-width:600px;">Every trip is a new story. Here's a taste of some of our favourite adventures — from remote high-country runs to coastal dune bashers.</p>
+    <div class="trips-grid">
+
+      <div class="trip-card">
+        <div class="trip-img" style="background-image:url('img/mt-skene.png')">
+          <span class="trip-tag">High Country</span>
+        </div>
+        <div class="trip-body">
+          <h3>Mt Skene Snow Trip</h3>
+          <div class="trip-meta">
+            <span>📅 July 2026</span>
+            <span>🚗 8 vehicles</span>
+            <span>⭐ Easy</span>
+          </div>
+          <p>A winter run up to Mt Skene in the Victorian Alps. Snow-covered tracks, rugged alpine scenery, and a brilliant excuse to get the tyres aired down.</p>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <div class="trip-img" style="background-image:url('img/dargo-hotel-cars.png')">
+          <span class="trip-tag">High Country</span>
+        </div>
+        <div class="trip-body">
+          <h3>Dargo — Billy Goats & Blue Rag</h3>
+          <div class="trip-meta">
+            <span>📅 May 2026</span>
+            <span>🚗 7 vehicles</span>
+            <span>⭐ Moderate</span>
+          </div>
+          <p>A classic High Country run taking in the Billy Goat Track and Blue Rag Range. Technical enough to keep it interesting, with stunning views as the reward.</p>
+        </div>
+      </div>
+
+      <div class="trip-card">
+        <div class="trip-img" style="background-image:url('img/big-desert.jpg')">
+          <span class="trip-tag">Desert Run</span>
+        </div>
+        <div class="trip-body">
+          <h3>Big Desert</h3>
+          <div class="trip-meta">
+            <span>📅 September 2026</span>
+            <span>🚗 6 vehicles</span>
+            <span>⭐ Easy</span>
+          </div>
+          <p>An accessible but remote run through the Big Desert Wilderness in Victoria's northwest. Sandy tracks, mallee scrub, and big open skies make for a great weekend away.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values">
+  <div class="container">
+    <div class="section-label">What We Stand For</div>
+    <h2 class="section-title">Our <span>Values</span></h2>
+    <div class="divider"></div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <h3>Mateship</h3>
+        <p>We look after each other on and off the track. No one gets left behind — whether you're bogged, broken down, or just need a hand with camp setup.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌿</div>
+        <h3>Tread Lightly</h3>
+        <p>We respect the land we explore. We stick to legal tracks, pack out our rubbish, and leave campsites better than we found them.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🛡️</div>
+        <h3>Safety First</h3>
+        <p>Every run is planned with safety as the priority. We carry recovery gear, communicate clearly, and ensure all drivers are ready for the terrain ahead.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🧭</div>
+        <h3>Adventure for All</h3>
+        <p>From beginners to seasoned veterans, we welcome all experience levels. We run trips that cater to everyone and help newer drivers build their skills.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section id="join">
+  <div class="container">
+    <div class="join-wrap">
+      <div class="join-intro">
+        <div class="section-label">Get Involved</div>
+        <h2 class="section-title">Join the <span>Club</span></h2>
+        <div class="divider"></div>
+        <p>Our club intentionally stays small to maintain strong connections between members and ensure quality experiences on every trip. Our membership process helps us find people who share our values and will contribute positively to the club culture.</p>
+        <p>We're always open to welcoming new members — but places are capped, so when a spot becomes available we take the time to find the right fit. New members join as <strong>prospects</strong> first, attending 3–4 events to get a feel for the club and get to know our members before their application is formally reviewed.</p>
+        <p>If that sounds like something you're up for, we'd love to hear from you.</p>
+        <div class="perks">
+          <div class="perk">Access to club runs throughout the year</div>
+          <div class="perk">Beginner training & recovery skills days</div>
+          <div class="perk">Member discounts with partner suppliers</div>
+          <div class="perk">Meet passionate 4WDers who love what they do</div>
+          <div class="perk">Family memberships available</div>
+        </div>
+      </div>
+      <div>
+        <form id="joinForm" action="https://formspree.io/f/mnjbwdrl" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="e.g. Jake" required/>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="e.g. Morrison" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@example.com" required/>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="04XX XXX XXX"/>
+          </div>
+          <div class="form-group">
+            <label>Your Vehicle</label>
+            <input type="text" placeholder="e.g. 2020 Toyota LandCruiser 200 Series"/>
+          </div>
+          <div class="form-group">
+            <label>Experience Level</label>
+            <select>
+              <option value="">Select your level...</option>
+              <option>Complete beginner — I'm just getting started</option>
+              <option>Some experience — done a few tracks</option>
+              <option>Intermediate — comfortable on most terrain</option>
+              <option>Advanced — experienced with recoveries & remote travel</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tell us a bit about yourself</label>
+            <textarea placeholder="Why you'd like to join, what you're hoping to get out of the club, any upcoming trips you're interested in..."></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Submit Application →</button>
+          <div class="success-msg" id="successMsg">🎉 Thanks for applying! We'll be in touch within 2–3 business days.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrap">
+      <div class="contact-brand">
+        <div class="logo-text"><span style="color:var(--red)">Southern Cross</span> 4X4</div>
+        <p>Exploring Australia's great outdoors.</p>
+      </div>
+    </div>
+    <div class="copyright">© 2025 Southern Cross 4X4 Club. All rights reserved.</div>
+  </div>
+</section>
+
+<script>
+  document.getElementById('joinForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const btn = this.querySelector('.submit-btn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    const res = await fetch(this.action, {
+      method: 'POST',
+      body: new FormData(this),
+      headers: { 'Accept': 'application/json' }
+    });
+    if(res.ok){
+      document.getElementById('successMsg').style.display = 'block';
+      this.reset();
+      btn.textContent = 'Application Sent ✔';
+      btn.style.background = '#2e7d32';
+    } else {
+      btn.textContent = 'Something went wrong — try again';
+      btn.style.background = '#a93226';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
