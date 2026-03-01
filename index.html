@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T5SDK946');</script>
+  <!-- End Google Tag Manager -->
+
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Southern Cross 4X4 Club</title>
+<title>Southern Cross 4X4 Club - 4WD Club in Werribee</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
   :root{
@@ -106,6 +116,13 @@
     .join-wrap{grid-template-columns:1fr;}
     .form-row{grid-template-columns:1fr;}
     .contact-info{text-align:left;}
+
+    /* Hero mobile fixes */
+    #hero{height:auto;min-height:100svh;padding:5rem 1.5rem 3rem;overflow:visible;}
+    .hero-bg{background-attachment:scroll;}
+    .hero-content{padding:1rem 0;}
+    .hero-btns{display:flex;flex-direction:column;align-items:center;gap:.75rem;}
+    .hero-btns .btn{width:100%;max-width:320px;text-align:center;margin:0;}
   }
 
   /* success */
@@ -113,6 +130,11 @@
 </style>
 </head>
 <body>
+
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5SDK946"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
 <!-- NAV -->
 <nav>
@@ -133,10 +155,12 @@
   <div class="hero-bg"></div>
   <div class="hero-content">
     <div class="hero-badge">4WD Club in Werribee</div>
-    <h1>Driven by Adventure. <em>Backed by Mates.</em></h1>
+    <h1>Driven by <em>Adventure</em></h1>
     <p class="hero-sub">Southern Cross 4X4 Club — where serious off-roaders come together to explore tracks less travelled, support one another on the trail, and celebrate the freedom of the outdoors.</p>
-    <a href="#join" class="btn btn-primary">Apply to Join</a>
-    <a href="#trips" class="btn btn-outline">See Our Trips</a>
+    <div class="hero-btns">
+      <a href="#join" class="btn btn-primary">Apply to Join</a>
+      <a href="#trips" class="btn btn-outline">See Our Trips</a>
+    </div>
   </div>
   <div class="scroll-hint">↓ Scroll to explore</div>
 </section>
@@ -144,10 +168,10 @@
 <!-- TRIPS -->
 <section id="trips">
   <div class="container">
-    <div class="section-label">Where We've Been</div>
-    <h2 class="section-title">Featured <span>Trips</span></h2>
+    <div class="section-label">Where We're Headed</div>
+    <h2 class="section-title">Planned <span>Trips</span></h2>
     <div class="divider"></div>
-    <p style="color:#999;max-width:600px;">Every trip is a new story. Here's a taste of some of our favourite adventures — from remote high-country runs to coastal dune bashers.</p>
+    <p style="color:#999;max-width:600px;">Here's what's coming up on the calendar — from alpine snow runs to remote desert tracks. Something for every skill level.</p>
     <div class="trips-grid">
 
       <div class="trip-card">
@@ -207,24 +231,19 @@
     <div class="divider"></div>
     <div class="values-grid">
       <div class="value-card">
-        <div class="value-icon">🤝</div>
-        <h3>Mateship</h3>
-        <p>We look after each other on and off the track. No one gets left behind — whether you're bogged, broken down, or just need a hand with camp setup.</p>
+        <div class="value-icon">🏕️</div>
+        <h3>Here for Adventure</h3>
+        <p>We're here to get out there — camping trips, 4WD tracks, and time spent in the great outdoors. If you love the bush and live for the next adventure, you'll fit right in.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">👨‍👩‍👧‍👦</div>
+        <h3>Family Friendly Fun</h3>
+        <p>We're a safe, respectful crew who know how to have a good time. Runs are planned with everyone in mind — whether you're bringing the family or just keen for a great weekend away.</p>
       </div>
       <div class="value-card">
         <div class="value-icon">🌿</div>
-        <h3>Tread Lightly</h3>
-        <p>We respect the land we explore. We stick to legal tracks, pack out our rubbish, and leave campsites better than we found them.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon">🛡️</div>
-        <h3>Safety First</h3>
-        <p>Every run is planned with safety as the priority. We carry recovery gear, communicate clearly, and ensure all drivers are ready for the terrain ahead.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon">🧭</div>
-        <h3>Adventure for All</h3>
-        <p>From beginners to seasoned veterans, we welcome all experience levels. We run trips that cater to everyone and help newer drivers build their skills.</p>
+        <h3>Respect the Bush</h3>
+        <p>We look after each other and the places we explore. Stick to legal tracks, leave no trace, and treat your fellow travellers right — on and off the trail.</p>
       </div>
     </div>
   </div>
@@ -254,11 +273,11 @@
           <div class="form-row">
             <div class="form-group">
               <label>First Name</label>
-              <input type="text" name="first_name" placeholder="e.g. Jake" required/>
+              <input type="text" name="firstName" placeholder="e.g. Jake" required/>
             </div>
             <div class="form-group">
               <label>Last Name</label>
-              <input type="text" name="last_name" placeholder="e.g. Morrison" required/>
+              <input type="text" name="lastName" placeholder="e.g. Morrison" required/>
             </div>
           </div>
           <div class="form-group">
