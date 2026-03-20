@@ -25,10 +25,8 @@
 
   /* NAV */
   nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(13,13,13,.92);backdrop-filter:blur(8px);border-bottom:1px solid #2a2a2a;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
-  .logo{display:flex;align-items:center;gap:.6rem;padding:.8rem 0;}
-  .logo-icon{font-size:1.8rem;}
-  .logo-text{font-size:1.1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
-  .logo-text span{color:var(--red);}
+  .logo{display:flex;align-items:center;padding:.4rem 0;text-decoration:none;}
+  .logo-img{height:70px;width:auto;}
   nav ul{list-style:none;display:flex;gap:2rem;}
   nav ul a{color:var(--muted);text-decoration:none;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;transition:.2s;}
   nav ul a:hover{color:var(--gold);}
@@ -101,7 +99,7 @@
   /* CONTACT */
   #contact{background:var(--dark);border-top:1px solid #1e1e1e;}
   .contact-wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:2rem;}
-  .contact-brand .logo-text{font-size:1.3rem;}
+  .footer-logo-img{height:90px;width:auto;margin-bottom:.5rem;}
   .contact-brand p{color:var(--muted);font-size:.85rem;margin-top:.4rem;}
   .social-links{display:flex;gap:1rem;}
   .social-links a{display:flex;align-items:center;justify-content:center;width:42px;height:42px;background:#1e1e1e;border-radius:50%;color:var(--muted);text-decoration:none;font-size:1.1rem;transition:.2s;border:1px solid #2d2d2d;}
@@ -138,14 +136,14 @@
 
 <!-- NAV -->
 <nav>
-  <div class="logo">
-    <span class="logo-icon">🌐</span>
-    <span class="logo-text"><span>Southern Cross</span> 4X4</span>
-  </div>
+  <a href="index.html" class="logo">
+    <img src="img/southern-cross-logo-light.png" alt="Southern Cross 4x4 Club" class="logo-img"/>
+  </a>
   <ul>
     <li><a href="#trips">Trips</a></li>
     <li><a href="#values">Values</a></li>
     <li><a href="#join">Join</a></li>
+    <li><a href="membership.html">Membership</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -181,7 +179,6 @@
         <div class="trip-body">
           <h3>Mt Skene Snow Trip</h3>
           <div class="trip-meta">
-            <span>📅 July 2026</span>
             <span>🚗 8 vehicles</span>
             <span>⭐ Easy</span>
           </div>
@@ -196,7 +193,6 @@
         <div class="trip-body">
           <h3>Dargo — Billy Goats & Blue Rag</h3>
           <div class="trip-meta">
-            <span>📅 May 2026</span>
             <span>🚗 7 vehicles</span>
             <span>⭐ Moderate</span>
           </div>
@@ -211,7 +207,6 @@
         <div class="trip-body">
           <h3>Big Desert</h3>
           <div class="trip-meta">
-            <span>📅 September 2026</span>
             <span>🚗 6 vehicles</span>
             <span>⭐ Easy</span>
           </div>
@@ -237,8 +232,8 @@
       </div>
       <div class="value-card">
         <div class="value-icon">👨‍👩‍👧‍👦</div>
-        <h3>Family Friendly Fun</h3>
-        <p>We're a safe, respectful crew who know how to have a good time. Runs are planned with everyone in mind — whether you're bringing the family or just keen for a great weekend away.</p>
+        <h3>Family friendly</h3>
+        <p>Whether you're looking for a fun trip out with the family, or a tough day on the tracks, we offer a safe, respectful crew with something for everyone. Santa has even been known to pay a visit to our Christmas party.</p>
       </div>
       <div class="value-card">
         <div class="value-icon">🌿</div>
@@ -319,7 +314,7 @@
   <div class="container">
     <div class="contact-wrap">
       <div class="contact-brand">
-        <div class="logo-text"><span style="color:var(--red)">Southern Cross</span> 4X4</div>
+        <img src="img/southern-cross-logo-light.png" alt="Southern Cross 4x4 Club" class="footer-logo-img"/>
         <p>Exploring Australia's great outdoors.</p>
       </div>
     </div>

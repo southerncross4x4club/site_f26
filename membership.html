@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T5SDK946');</script>
+<!-- End Google Tag Manager -->
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Becoming a Member — Southern Cross 4X4 Club</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --red:#0070d1;--orange:#0070d1;--dark:#0c131c;--dark2:#0f1a26;--dark3:#132030;
+    --text:#e8e0d0;--muted:#8a9bb0;--gold:#4fa8f0;
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:var(--text);line-height:1.6;}
+
+  /* NAV */
+  nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(13,13,13,.92);backdrop-filter:blur(8px);border-bottom:1px solid #2a2a2a;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+  .logo{display:flex;align-items:center;padding:.4rem 0;text-decoration:none;}
+  .logo-img{height:70px;width:auto;}
+  nav ul{list-style:none;display:flex;gap:2rem;}
+  nav ul a{color:var(--muted);text-decoration:none;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;transition:.2s;}
+  nav ul a:hover{color:var(--gold);}
+  nav ul a.active{color:var(--gold);}
+
+  /* PAGE HEADER */
+  .page-header{padding:8rem 2rem 5rem;background:var(--dark2);border-bottom:1px solid #1e1e1e;}
+  .page-header .container{max-width:1100px;margin:0 auto;}
+  .section-label{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem;}
+  .section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:1rem;}
+  .section-title span{color:var(--gold);}
+  .divider{width:60px;height:3px;background:var(--red);margin:1.5rem 0;}
+
+  /* SECTIONS */
+  section{padding:5rem 2rem;}
+  .container{max-width:1100px;margin:0 auto;}
+
+  /* BENEFITS */
+  #benefits{background:var(--dark);}
+  .benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:2.5rem;}
+  .benefit-card{background:var(--dark3);border:1px solid #2a2a2a;border-top:3px solid var(--red);border-radius:4px;padding:1.8rem 1.5rem;}
+  .benefit-icon{font-size:2rem;margin-bottom:.8rem;}
+  .benefit-card h3{font-size:.88rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;color:var(--gold);}
+  .benefit-card p{font-size:.85rem;color:#999;line-height:1.6;}
+
+  /* PROCESS */
+  #process{background:var(--dark2);}
+  .process-intro{color:#999;font-size:.95rem;max-width:680px;margin-bottom:3rem;}
+  .process-steps{display:flex;flex-direction:column;gap:1.5rem;margin-top:2rem;}
+  .step{display:flex;gap:1.5rem;align-items:flex-start;background:var(--dark3);border:1px solid #2a2a2a;border-radius:6px;padding:1.8rem;}
+  .step-num{flex-shrink:0;width:44px;height:44px;background:var(--red);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.05rem;}
+  .step-body h3{font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:.4rem;}
+  .step-body p{font-size:.88rem;color:#999;line-height:1.6;}
+
+  /* CRITERIA */
+  #criteria{background:var(--dark);}
+  .criteria-intro{color:#999;font-size:.95rem;max-width:680px;margin-bottom:2.5rem;}
+  .criteria-list{display:flex;flex-direction:column;gap:.9rem;margin-top:1.5rem;}
+  .criterion{display:flex;align-items:flex-start;gap:.9rem;font-size:.9rem;color:#bbb;background:var(--dark3);border:1px solid #2a2a2a;border-radius:4px;padding:1.1rem 1.4rem;}
+  .criterion::before{content:'✔';color:var(--gold);font-size:.85rem;flex-shrink:0;margin-top:.15rem;}
+
+  /* FORM */
+  #apply{background:var(--dark2);}
+  .apply-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+  .apply-intro p{color:#999;margin-bottom:1rem;font-size:.95rem;}
+  form{background:var(--dark3);border:1px solid #2a2a2a;border-radius:6px;padding:2rem;}
+  .form-group{margin-bottom:1.2rem;}
+  label{display:block;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+  input,select,textarea{width:100%;background:#111;border:1px solid #333;color:var(--text);padding:.7rem 1rem;border-radius:4px;font-size:.9rem;transition:.2s;font-family:inherit;}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red);}
+  textarea{resize:vertical;min-height:90px;}
+  select option{background:#111;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .submit-btn{width:100%;background:var(--red);color:#fff;padding:.9rem;border-radius:4px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;font-size:.9rem;transition:.25s;margin-top:.5rem;}
+  .submit-btn:hover{filter:brightness(1.15);}
+  .success-msg{display:none;background:#1a3a1a;border:1px solid #2e7d32;color:#a5d6a7;padding:1rem;border-radius:4px;text-align:center;margin-top:1rem;}
+
+  /* CONTACT */
+  #contact{background:var(--dark);border-top:1px solid #1e1e1e;padding:3rem 2rem;}
+  .contact-wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:2rem;}
+  .footer-logo-img{height:90px;width:auto;margin-bottom:.5rem;}
+  .contact-brand p{color:var(--muted);font-size:.85rem;margin-top:.4rem;}
+  .copyright{text-align:center;color:#444;font-size:.75rem;margin-top:3rem;padding-top:2rem;border-top:1px solid #1e1e1e;}
+
+  @media(max-width:700px){
+    nav ul{display:none;}
+    .apply-wrap{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .benefits-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:480px){
+    .benefits-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5SDK946"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">
+    <img src="img/southern-cross-logo-light.png" alt="Southern Cross 4x4 Club" class="logo-img"/>
+  </a>
+  <ul>
+    <li><a href="index.html#trips">Trips</a></li>
+    <li><a href="index.html#values">Values</a></li>
+    <li><a href="membership.html" class="active">Membership</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="section-label">Get Involved</div>
+    <h1 class="section-title">Becoming a <span>Member</span></h1>
+    <div class="divider"></div>
+    <p style="color:#999;max-width:660px;font-size:.95rem;">Our club intentionally stays small to maintain strong connections between members and ensure quality experiences on every trip. Here's everything you need to know about joining.</p>
+  </div>
+</div>
+
+<!-- MEMBER BENEFITS -->
+<section id="benefits">
+  <div class="container">
+    <div class="section-label">Why Join</div>
+    <h2 class="section-title">Member <span>Benefits</span></h2>
+    <div class="divider"></div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">🗓️</div>
+        <h3>Club Runs</h3>
+        <p>Access to club-organised trips and runs throughout the year, from easy family weekends to challenging multi-day tracks.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🎓</div>
+        <h3>Training Days</h3>
+        <p>Beginner-friendly training sessions covering 4WD techniques, recovery skills, and safe off-road driving.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">💰</div>
+        <h3>Member Discounts</h3>
+        <p>Exclusive discounts with our partner suppliers on gear, accessories, and servicing.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🤝</div>
+        <h3>Great Community</h3>
+        <p>Meet and build lasting friendships with passionate 4WDers who love what they do.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">👨‍👩‍👧‍👦</div>
+        <h3>Family Memberships</h3>
+        <p>Bring the whole family along — family memberships are available so everyone can be part of the adventure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOINING PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Joining <span>Process</span></h2>
+    <div class="divider"></div>
+    <p class="process-intro">Our membership process helps us find people who share our values and will contribute positively to the club culture. Here's how it works.</p>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Nomination</h3>
+          <p>A prospective member must be nominated by a current member who knows them and believes they'll be a good fit for the club.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Trial Period</h3>
+          <p>Prospects attend 2–3 club events to experience our culture, get a feel for how we operate, and meet current members.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Formal Proposal</h3>
+          <p>After the trial period, the nominating member formally proposes the prospect for membership. A second member must support the proposal.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h3>Member Vote</h3>
+          <p>The club votes by anonymous ballot. A prospect needs 70% approval from the membership to be accepted.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h3>Concerns Process</h3>
+          <p>If any member has serious reservations about a prospect, they can speak confidentially with the committee before the vote takes place.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBER CRITERIA -->
+<section id="criteria">
+  <div class="container">
+    <div class="section-label">What We Look For</div>
+    <h2 class="section-title">Member <span>Criteria</span></h2>
+    <div class="divider"></div>
+    <p class="criteria-intro">To become a member, prospects must demonstrate the following.</p>
+    <div class="criteria-list">
+      <div class="criterion">Demonstrates good judgement in assessing track conditions and their own capabilities</div>
+      <div class="criterion">Supports and welcomes new members, sharing knowledge and experience generously</div>
+      <div class="criterion">Represents the club positively when interacting with landowners, other user groups, and the general public</div>
+      <div class="criterion">Is respectful in their dealings with other club members</div>
+      <div class="criterion">Participates constructively in club activities, meetings, and decision-making</div>
+      <div class="criterion">Acts honestly and with integrity in all club-related matters</div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLICATION FORM -->
+<section id="apply">
+  <div class="container">
+    <div class="apply-wrap">
+      <div class="apply-intro">
+        <div class="section-label">Ready to Join?</div>
+        <h2 class="section-title">Member <span>Application</span></h2>
+        <div class="divider"></div>
+        <p>If you'd like to be considered for membership, fill out the form and we'll be in touch. The first step is simply getting to know you — so don't stress about having everything figured out yet.</p>
+        <p>Not sure where to start? Feel free to come along to one of our events as a guest first and see if it's the right fit.</p>
+      </div>
+      <div>
+        <form id="memberForm" action="https://formspree.io/f/mnjbwdrl" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" name="firstName" placeholder="e.g. Jake" required/>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" name="lastName" placeholder="e.g. Morrison" required/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="you@example.com" required/>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" placeholder="04XX XXX XXX"/>
+          </div>
+          <div class="form-group">
+            <label>Your Vehicle</label>
+            <input type="text" name="vehicle" placeholder="e.g. 2020 Toyota LandCruiser 200 Series"/>
+          </div>
+          <div class="form-group">
+            <label>Experience Level</label>
+            <select name="experience">
+              <option value="">Select your level...</option>
+              <option>Complete beginner — I'm just getting started</option>
+              <option>Some experience — done a few tracks</option>
+              <option>Intermediate — comfortable on most terrain</option>
+              <option>Advanced — experienced with recoveries &amp; remote travel</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tell us a bit about yourself</label>
+            <textarea name="message" placeholder="Why you'd like to join, what you're hoping to get out of the club, any upcoming trips you're interested in..."></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Submit Application →</button>
+          <div class="success-msg" id="successMsg">🎉 Thanks for applying! We'll be in touch within 2–3 business days.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrap">
+      <div class="contact-brand">
+        <img src="img/southern-cross-logo-light.png" alt="Southern Cross 4x4 Club" class="footer-logo-img"/>
+        <p>Exploring Australia's great outdoors.</p>
+      </div>
+    </div>
+    <div class="copyright">© 2025 Southern Cross 4X4 Club. All rights reserved.</div>
+  </div>
+</section>
+
+<script>
+  document.getElementById('memberForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const btn = this.querySelector('.submit-btn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    const res = await fetch(this.action, {
+      method: 'POST',
+      body: new FormData(this),
+      headers: { 'Accept': 'application/json' }
+    });
+    if(res.ok){
+      document.getElementById('successMsg').style.display = 'block';
+      this.reset();
+      btn.textContent = 'Application Sent ✔';
+      btn.style.background = '#2e7d32';
+    } else {
+      btn.textContent = 'Something went wrong — try again';
+      btn.style.background = '#a93226';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
