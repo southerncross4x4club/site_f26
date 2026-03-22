@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-T5SDK946');</script>
+<!-- End Google Tag Manager -->
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta property="og:title" content="Fuel Calculator - Southern Cross 4X4 Club"/>
+<meta property="og:description" content="Plan your next 4WD trip. Calculate fuel costs per leg, factor in off-road, sand and towing conditions, and split costs with your crew."/>
+<meta property="og:image" content="https://southerncross4x4.com.au/img/calculator-screenshot.png"/>
+<meta property="og:type" content="website"/>
+<link rel="apple-touch-icon" sizes="180x180" href="img/favicon_io/apple-touch-icon.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon_io/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon_io/favicon-16x16.png"/>
+<link rel="manifest" href="img/favicon_io/site.webmanifest"/>
+<link rel="shortcut icon" href="img/favicon_io/favicon.ico"/>
+<title>Fuel Calculator - Southern Cross 4X4 Club</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --red:#0070d1;--orange:#0070d1;--dark:#0c131c;--dark2:#0f1a26;--dark3:#132030;
+    --text:#e8e0d0;--muted:#8a9bb0;--gold:#4fa8f0;
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:'Segoe UI',sans-serif;background:var(--dark);color:var(--text);line-height:1.6;}
+
+  /* NAV */
+  nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(13,13,13,.92);backdrop-filter:blur(8px);border-bottom:1px solid #2a2a2a;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+  .logo{display:flex;align-items:center;padding:.4rem 0;text-decoration:none;}
+  .logo-img{height:70px;width:auto;}
+  nav ul{list-style:none;display:flex;gap:2rem;}
+  nav ul a{color:var(--muted);text-decoration:none;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;transition:.2s;}
+  nav ul a:hover{color:var(--gold);}
+  nav ul a.active{color:var(--gold);}
+
+  /* PAGE HEADER */
+  .page-header{padding:8rem 2rem 5rem;background:var(--dark2);border-bottom:1px solid #1e1e1e;}
+  .page-header .container{max-width:1100px;margin:0 auto;}
+  .section-label{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem;}
+  .section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:1rem;}
+  .section-title span{color:var(--gold);}
+  .divider{width:60px;height:3px;background:var(--red);margin:1.5rem 0;}
+
+  /* SECTIONS */
+  section{padding:5rem 2rem;}
+  .container{max-width:1100px;margin:0 auto;}
+
+  /* FORM BASE */
+  .form-group{margin-bottom:1.2rem;}
+  label{display:block;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+  input,select{width:100%;background:#111;border:1px solid #333;color:var(--text);padding:.7rem 1rem;border-radius:4px;font-size:.9rem;transition:.2s;font-family:inherit;}
+  input:focus,select:focus{outline:none;border-color:var(--red);}
+  select option{background:#111;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .submit-btn{background:var(--red);color:#fff;padding:.9rem 1.5rem;border-radius:4px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;font-size:.9rem;transition:.25s;}
+  .submit-btn:hover{filter:brightness(1.15);}
+
+  /* CALCULATOR */
+  .calc-form{background:var(--dark3);border:1px solid #2a2a2a;border-radius:6px;padding:2rem;max-width:720px;}
+  .calc-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .distance-row{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:end;}
+
+  /* Toggle switches */
+  .toggle-row{display:flex;align-items:center;gap:.8rem;}
+  .toggle-label{font-size:.85rem;color:var(--muted);}
+  .toggle{position:relative;width:44px;height:24px;flex-shrink:0;}
+  .toggle input{opacity:0;width:0;height:0;position:absolute;}
+  .toggle-slider{position:absolute;inset:0;background:#333;border-radius:12px;cursor:pointer;transition:.2s;}
+  .toggle-slider::before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:#888;border-radius:50%;transition:.2s;}
+  .toggle input:checked+.toggle-slider{background:var(--red);}
+  .toggle input:checked+.toggle-slider::before{transform:translateX(20px);background:#fff;}
+
+  .terrain-toggles{display:flex;flex-wrap:wrap;gap:1.2rem;margin-top:.5rem;}
+
+  /* Preset buttons */
+  .preset-btns{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem;}
+  .preset-btn{background:var(--dark2);border:1px solid #333;color:var(--muted);padding:.35rem .7rem;border-radius:3px;font-size:.75rem;cursor:pointer;transition:.2s;}
+  .preset-btn:hover,.preset-btn.active{border-color:var(--gold);color:var(--gold);}
+
+  /* Leg cards */
+  .legs-area{margin-top:2.5rem;}
+  .trip-summary{background:var(--dark3);border:1px solid #2a2a2a;border-left:3px solid var(--gold);border-radius:6px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;}
+  .summary-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.5rem;}
+  .summary-stat{text-align:center;}
+  .summary-value{font-size:1.4rem;font-weight:800;color:var(--gold);}
+  .summary-label{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.15rem;}
+  .summary-actions{display:flex;gap:.8rem;margin-top:1.2rem;flex-wrap:wrap;}
+
+  .leg-cards{display:flex;flex-direction:column;gap:1rem;}
+  .leg-card{background:var(--dark3);border:1px solid #2a2a2a;border-radius:6px;padding:1.2rem 1.5rem;position:relative;}
+  .leg-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;}
+  .leg-card-header h3{font-size:.88rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);}
+  .leg-delete{background:none;border:none;color:#555;cursor:pointer;font-size:1.1rem;padding:.2rem .5rem;transition:.2s;}
+  .leg-delete:hover{color:#e74c3c;}
+  .leg-card-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem;}
+  .leg-stat-value{font-size:1rem;font-weight:700;color:var(--text);}
+  .leg-stat-label{font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:.1rem;}
+  .terrain-tags{display:flex;gap:.4rem;margin-top:.6rem;}
+  .terrain-tag{font-size:.68rem;padding:.2rem .5rem;border-radius:3px;background:rgba(79,168,240,.12);color:var(--gold);border:1px solid rgba(79,168,240,.25);letter-spacing:.05em;text-transform:uppercase;}
+  .disclaimer{font-size:.75rem;color:#666;margin-top:1rem;line-height:1.5;}
+  .leg-edit{background:none;border:none;color:#555;cursor:pointer;font-size:.85rem;padding:.2rem .5rem;transition:.2s;}
+  .leg-edit:hover{color:var(--gold);}
+  .leg-card-actions{display:flex;gap:.3rem;}
+  .btn-success{background:#2e7d32;}
+
+  /* Save trip */
+  .save-trip-row{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:end;margin-top:1rem;}
+  .save-trip-row .form-group{margin-bottom:0;}
+
+  /* Ghost button */
+  .ghost-btn{background:transparent;border:1px solid #555;color:var(--muted);padding:.6rem 1.2rem;border-radius:4px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.2s;}
+  .ghost-btn:hover{border-color:var(--gold);color:var(--gold);}
+  .ghost-btn.danger:hover{border-color:#e74c3c;color:#e74c3c;}
+
+  /* Saved trips */
+  .saved-trip-card{background:var(--dark3);border:1px solid #2a2a2a;border-radius:6px;margin-bottom:1rem;overflow:hidden;}
+  .saved-trip-header{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;cursor:pointer;transition:.2s;}
+  .saved-trip-header:hover{background:var(--dark2);}
+  .saved-trip-header h3{font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);}
+  .saved-trip-meta{font-size:.78rem;color:var(--muted);display:flex;gap:1.5rem;align-items:center;}
+  .saved-trip-body{padding:0 1.5rem 1.2rem;display:none;}
+  .saved-trip-body.open{display:block;}
+  .saved-trip-leg{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid #1e1e1e;font-size:.85rem;color:#bbb;}
+  .saved-trip-leg:last-child{border-bottom:none;}
+
+  /* CONTACT */
+  #contact{background:var(--dark);border-top:1px solid #1e1e1e;padding:3rem 2rem;}
+  .contact-wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:2rem;}
+  .footer-logo-img{height:90px;width:auto;margin-bottom:.5rem;}
+  .contact-brand p{color:var(--muted);font-size:.85rem;margin-top:.4rem;}
+  .copyright{text-align:center;color:#444;font-size:.75rem;margin-top:3rem;padding-top:2rem;border-top:1px solid #1e1e1e;}
+
+  @media(max-width:700px){
+    nav ul{display:none;}
+    .form-row,.calc-row,.distance-row{grid-template-columns:1fr;}
+    .summary-stats{grid-template-columns:1fr 1fr;}
+    .leg-card-stats{grid-template-columns:repeat(3,1fr);}
+    .save-trip-row{grid-template-columns:1fr;}
+    .terrain-toggles{flex-direction:column;gap:.8rem;}
+  }
+  @media(max-width:480px){
+    .preset-btns{flex-direction:column;}
+    .summary-stats{grid-template-columns:1fr;}
+    .leg-card-stats{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T5SDK946"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">
+    <img src="img/southern-cross-logo-light.png" alt="Southern Cross 4x4 Club" class="logo-img"/>
+  </a>
+  <ul>
+    <li><a href="index.html#trips">Trips</a></li>
+    <li><a href="index.html#values">Values</a></li>
+    <li><a href="membership.html">Membership</a></li>
+    <li><a href="fuel-calculator.html" class="active">Fuel Calculator</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="section-label">Trip Planning</div>
+    <h1 class="section-title">Fuel <span>Calculator</span></h1>
+    <div class="divider"></div>
+    <p style="color:#999;max-width:660px;font-size:.95rem;">Work out how much fuel you'll need and what it'll cost. Add each leg of your trip separately to build up the full picture, whether it's highway, dirt, or sand.</p>
+  </div>
+</div>
+
+<!-- CALCULATOR -->
+<section id="calculator" style="background:var(--dark2);">
+  <div class="container">
+    <div class="calc-form">
+
+      <div class="form-group">
+        <label>Leg Name</label>
+        <input type="text" id="legName" placeholder="e.g. Melbourne to Dargo"/>
+      </div>
+
+      <div class="distance-row">
+        <div class="form-group" style="margin-bottom:0;">
+          <label>Distance (km)</label>
+          <input type="number" id="distance" placeholder="e.g. 450" min="0" step="1"/>
+        </div>
+        <div class="toggle-row" style="padding-bottom:.3rem;">
+          <label class="toggle">
+            <input type="checkbox" id="roundTrip"/>
+            <span class="toggle-slider"></span>
+          </label>
+          <span class="toggle-label">Round trip</span>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:1.2rem;">
+        <label>Fuel Consumption (L/100km)</label>
+        <input type="number" id="consumption" placeholder="e.g. 14" min="0" step="0.1"/>
+        <div class="preset-btns">
+          <button type="button" class="preset-btn" data-value="14">Land Cruiser (~14)</button>
+          <button type="button" class="preset-btn" data-value="13">Hilux (~13)</button>
+          <button type="button" class="preset-btn" data-value="16">Patrol (~16)</button>
+          <button type="button" class="preset-btn" data-value="12">Prado (~12)</button>
+          <button type="button" class="preset-btn" data-value="13">Ranger (~13)</button>
+          <button type="button" class="preset-btn" data-value="11">Triton (~11)</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Fuel Consumption Multipliers</label>
+        <div class="terrain-toggles">
+          <div class="toggle-row">
+            <label class="toggle">
+              <input type="checkbox" id="offRoad"/>
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">Off-road (+30%)</span>
+          </div>
+          <div class="toggle-row">
+            <label class="toggle">
+              <input type="checkbox" id="sand"/>
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">Sand (+40%)</span>
+          </div>
+          <div class="toggle-row">
+            <label class="toggle">
+              <input type="checkbox" id="towing"/>
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">Towing (+20%)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Fuel Price ($/L)</label>
+        <input type="number" id="fuelPrice" placeholder="e.g. 1.95" min="0" step="0.01"/>
+      </div>
+
+      <div class="form-group">
+        <label>Passengers per Vehicle</label>
+        <input type="number" id="numPassengers" value="1" min="1" step="1"/>
+      </div>
+
+      <button type="button" class="submit-btn" id="addLegBtn" style="width:100%;margin-top:.5rem;">Add Leg</button>
+      <p class="disclaimer">This calculator provides rough estimates only. It is your responsibility to determine your own fuel consumption under different driving conditions.</p>
+    </div>
+
+    <!-- LEG CARDS AREA -->
+    <div class="legs-area" id="legsArea" style="display:none;">
+
+      <div class="trip-summary" id="tripSummary">
+        <div class="section-label" style="margin-bottom:.3rem;">Trip Summary</div>
+        <div class="summary-stats">
+          <div class="summary-stat">
+            <div class="summary-value" id="sumDistance">-</div>
+            <div class="summary-label">Total Distance</div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-value" id="sumLitres">-</div>
+            <div class="summary-label">Est. Consumption</div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-value" id="sumCost">-</div>
+            <div class="summary-label">Total Cost</div>
+          </div>
+        </div>
+        <div class="summary-actions">
+          <button type="button" class="ghost-btn danger" id="clearAllBtn">Clear All</button>
+        </div>
+        <div class="save-trip-row" id="saveTripRow">
+          <div class="form-group">
+            <label>Save Trip As</label>
+            <input type="text" id="tripName" placeholder="e.g. Dargo Weekend"/>
+          </div>
+          <button type="button" class="submit-btn" id="saveTripBtn">Save Trip</button>
+        </div>
+      </div>
+
+      <div class="leg-cards" id="legCards"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SAVED TRIPS -->
+<section id="saved-trips">
+  <div class="container">
+    <div class="section-label">Past Trips</div>
+    <h2 class="section-title">Saved <span>Trips</span></h2>
+    <div class="divider"></div>
+    <div id="savedTripsContent">
+      <p id="noSaved" style="color:#999;">No saved trips yet. Use the calculator above to plan a trip and save it.</p>
+      <div id="savedTripsList"></div>
+      <button type="button" class="ghost-btn danger" id="clearHistoryBtn" style="display:none;margin-top:1rem;">Clear History</button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrap">
+      <div class="contact-brand">
+        <img src="img/southern-cross-logo-light.png" alt="Southern Cross 4x4 Club" class="footer-logo-img"/>
+        <p>Exploring Australia's great outdoors.</p>
+      </div>
+    </div>
+    <div class="copyright">&copy; 2025 Southern Cross 4X4 Club. All rights reserved.</div>
+  </div>
+</section>
+
+<script>
+  /* State */
+  var legs = [];
+  var editingIndex = -1;
+
+  /* Helpers */
+  function esc(str) {
+    var d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+
+  /* Preset buttons */
+  document.querySelectorAll('.preset-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.getElementById('consumption').value = btn.dataset.value;
+      document.querySelectorAll('.preset-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+    });
+  });
+
+  /* Build leg from form inputs */
+  function buildLeg() {
+    var distRaw = parseFloat(document.getElementById('distance').value);
+    var consumption = parseFloat(document.getElementById('consumption').value);
+    var price = parseFloat(document.getElementById('fuelPrice').value);
+
+    if (!distRaw || distRaw <= 0) { alert('Please enter a distance.'); return null; }
+    if (!consumption || consumption <= 0) { alert('Please enter fuel consumption.'); return null; }
+    if (!price || price <= 0) { alert('Please enter fuel price.'); return null; }
+
+    var dist = distRaw;
+    var roundTrip = document.getElementById('roundTrip').checked;
+    if (roundTrip) dist *= 2;
+
+    var offRoad = document.getElementById('offRoad').checked;
+    var sand = document.getElementById('sand').checked;
+    var towing = document.getElementById('towing').checked;
+    var adjConsumption = consumption;
+    if (offRoad) adjConsumption *= 1.30;
+    if (sand) adjConsumption *= 1.40;
+    if (towing) adjConsumption *= 1.20;
+
+    var passengers = parseInt(document.getElementById('numPassengers').value) || 1;
+    var totalLitres = (dist / 100) * adjConsumption;
+    var totalCost = totalLitres * price;
+    var costPerPerson = totalCost / passengers;
+
+    var legName = document.getElementById('legName').value.trim() || 'Leg ' + (editingIndex >= 0 ? editingIndex + 1 : legs.length + 1);
+
+    var terrainTags = [];
+    if (offRoad) terrainTags.push('Off-road');
+    if (sand) terrainTags.push('Sand');
+    if (towing) terrainTags.push('Towing');
+
+    return {
+      name: legName,
+      distance: dist,
+      distanceRaw: distRaw,
+      roundTrip: roundTrip,
+      consumption: consumption,
+      offRoad: offRoad,
+      sand: sand,
+      towing: towing,
+      estPer100: adjConsumption,
+      litres: totalLitres,
+      totalCost: totalCost,
+      costPerPerson: costPerPerson,
+      passengers: passengers,
+      price: price,
+      terrain: terrainTags
+    };
+  }
+
+  /* Flash button green */
+  function flashButton(text) {
+    var btn = document.getElementById('addLegBtn');
+    var origText = editingIndex >= 0 ? 'Update Leg' : 'Add Leg';
+    btn.textContent = text;
+    btn.classList.add('btn-success');
+    btn.disabled = true;
+    setTimeout(function() {
+      btn.textContent = 'Add Leg';
+      btn.classList.remove('btn-success');
+      btn.disabled = false;
+      editingIndex = -1;
+    }, 2000);
+  }
+
+  /* Add or update leg */
+  document.getElementById('addLegBtn').addEventListener('click', function() {
+    var leg = buildLeg();
+    if (!leg) return;
+
+    if (editingIndex >= 0) {
+      legs[editingIndex] = leg;
+      flashButton('Leg Updated');
+    } else {
+      legs.push(leg);
+      flashButton('Leg Added');
+    }
+
+    renderLegs();
+
+    // Reset leg-specific fields, keep price/passengers
+    document.getElementById('legName').value = '';
+    document.getElementById('distance').value = '';
+    document.getElementById('roundTrip').checked = false;
+    document.getElementById('offRoad').checked = false;
+    document.getElementById('sand').checked = false;
+    document.getElementById('towing').checked = false;
+  });
+
+  /* Load leg into form for editing */
+  function editLeg(index) {
+    var leg = legs[index];
+    editingIndex = index;
+    document.getElementById('legName').value = leg.name;
+    document.getElementById('distance').value = leg.distanceRaw;
+    document.getElementById('roundTrip').checked = leg.roundTrip;
+    document.getElementById('consumption').value = leg.consumption;
+    document.getElementById('offRoad').checked = leg.offRoad;
+    document.getElementById('sand').checked = leg.sand;
+    document.getElementById('towing').checked = leg.towing;
+    document.getElementById('fuelPrice').value = leg.price;
+    document.getElementById('numPassengers').value = leg.passengers;
+
+    // Update button text
+    document.getElementById('addLegBtn').textContent = 'Update Leg';
+
+    // Scroll to calculator
+    document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* Render Legs */
+  function renderLegs() {
+    var area = document.getElementById('legsArea');
+    var cards = document.getElementById('legCards');
+
+    if (legs.length === 0) {
+      area.style.display = 'none';
+      return;
+    }
+    area.style.display = 'block';
+
+    // Summary
+    var totalDist = 0, totalLitres = 0, totalCost = 0;
+    for (var i = 0; i < legs.length; i++) {
+      totalDist += legs[i].distance;
+      totalLitres += legs[i].litres;
+      totalCost += legs[i].totalCost;
+    }
+    document.getElementById('sumDistance').textContent = Math.round(totalDist) + ' km';
+    document.getElementById('sumLitres').textContent = totalLitres.toFixed(1) + ' L';
+    document.getElementById('sumCost').textContent = '$' + totalCost.toFixed(2);
+
+    // Cards
+    var html = '';
+    for (var i = 0; i < legs.length; i++) {
+      var leg = legs[i];
+      // Ensure numeric fields after localStorage round-trip
+      leg.distance = parseFloat(leg.distance) || 0;
+      leg.distanceRaw = parseFloat(leg.distanceRaw) || leg.distance;
+      leg.litres = parseFloat(leg.litres) || 0;
+      leg.estPer100 = parseFloat(leg.estPer100) || 0;
+      leg.totalCost = parseFloat(leg.totalCost) || 0;
+      leg.costPerPerson = parseFloat(leg.costPerPerson) || 0;
+      leg.consumption = parseFloat(leg.consumption) || 0;
+      leg.price = parseFloat(leg.price) || 0;
+      leg.passengers = parseInt(leg.passengers) || 1;
+      leg.terrain = leg.terrain || [];
+      var tagsHtml = '';
+      for (var t = 0; t < leg.terrain.length; t++) {
+        tagsHtml += '<span class="terrain-tag">' + esc(leg.terrain[t]) + '</span>';
+      }
+      html += '<div class="leg-card">' +
+        '<div class="leg-card-header">' +
+          '<h3>' + esc(leg.name) + '</h3>' +
+          '<div class="leg-card-actions">' +
+            '<button class="leg-edit" data-index="' + i + '" title="Edit leg">&#9998;</button>' +
+            '<button class="leg-delete" data-index="' + i + '" title="Remove leg">&times;</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="leg-card-stats">' +
+          '<div><div class="leg-stat-value">' + Math.round(leg.distance) + ' km</div><div class="leg-stat-label">Distance</div></div>' +
+          '<div><div class="leg-stat-value">' + leg.litres.toFixed(1) + ' L</div><div class="leg-stat-label">Est. Consumption</div></div>' +
+          '<div><div class="leg-stat-value">' + leg.estPer100.toFixed(1) + ' L/100km</div><div class="leg-stat-label">Est. L/100km</div></div>' +
+          '<div><div class="leg-stat-value">$' + leg.totalCost.toFixed(2) + '</div><div class="leg-stat-label">Total Cost</div></div>' +
+          '<div><div class="leg-stat-value">$' + leg.costPerPerson.toFixed(2) + '</div><div class="leg-stat-label">Per Person</div></div>' +
+        '</div>' +
+        (tagsHtml ? '<div class="terrain-tags">' + tagsHtml + '</div>' : '') +
+      '</div>';
+    }
+    cards.innerHTML = html;
+
+    // Attach handlers
+    cards.querySelectorAll('.leg-delete').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        legs.splice(parseInt(btn.dataset.index), 1);
+        renderLegs();
+      });
+    });
+    cards.querySelectorAll('.leg-edit').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        editLeg(parseInt(btn.dataset.index));
+      });
+    });
+  }
+
+  /* Clear All */
+  document.getElementById('clearAllBtn').addEventListener('click', function() {
+    if (confirm('Clear all legs from this trip?')) {
+      legs = [];
+      editingIndex = -1;
+      document.getElementById('addLegBtn').textContent = 'Add Leg';
+      renderLegs();
+    }
+  });
+
+  /* Save Trip */
+  document.getElementById('saveTripBtn').addEventListener('click', function() {
+    if (legs.length === 0) return;
+    var name = document.getElementById('tripName').value.trim() || 'Unnamed Trip';
+    var history = JSON.parse(localStorage.getItem('sc4x4_fuel_trips') || '[]');
+
+    var totalCost = 0, totalDist = 0;
+    for (var i = 0; i < legs.length; i++) {
+      totalCost += legs[i].totalCost;
+      totalDist += legs[i].distance;
+    }
+
+    history.unshift({
+      name: name,
+      date: new Date().toLocaleDateString('en-AU'),
+      legs: legs.slice(),
+      totalCost: totalCost.toFixed(2),
+      totalDistance: Math.round(totalDist)
+    });
+
+    localStorage.setItem('sc4x4_fuel_trips', JSON.stringify(history));
+    document.getElementById('tripName').value = '';
+    legs = [];
+    editingIndex = -1;
+    document.getElementById('addLegBtn').textContent = 'Add Leg';
+    renderLegs();
+    renderSavedTrips();
+  });
+
+  /* Render Saved Trips */
+  function renderSavedTrips() {
+    var history = JSON.parse(localStorage.getItem('sc4x4_fuel_trips') || '[]');
+    var list = document.getElementById('savedTripsList');
+    var noMsg = document.getElementById('noSaved');
+    var clearBtn = document.getElementById('clearHistoryBtn');
+
+    if (history.length === 0) {
+      list.innerHTML = '';
+      noMsg.style.display = 'block';
+      clearBtn.style.display = 'none';
+      return;
+    }
+    noMsg.style.display = 'none';
+    clearBtn.style.display = 'inline-block';
+
+    var html = '';
+    for (var i = 0; i < history.length; i++) {
+      var trip = history[i];
+      var legsHtml = '';
+      if (trip.legs) {
+        for (var j = 0; j < trip.legs.length; j++) {
+          var leg = trip.legs[j];
+          var legDist = parseFloat(leg.distance) || 0;
+          var legLitres = parseFloat(leg.litres) || 0;
+          var legCost = parseFloat(leg.totalCost) || 0;
+          legsHtml += '<div class="saved-trip-leg">' +
+            '<span>' + esc(leg.name) + '</span>' +
+            '<span>' + Math.round(legDist) + ' km &middot; ' + legLitres.toFixed(1) + ' L &middot; $' + legCost.toFixed(2) + '</span>' +
+          '</div>';
+        }
+      }
+      html += '<div class="saved-trip-card">' +
+        '<div class="saved-trip-header" data-trip="' + i + '">' +
+          '<h3>' + esc(trip.name) + '</h3>' +
+          '<div class="saved-trip-meta">' +
+            '<span>' + esc(trip.date) + '</span>' +
+            '<span>' + trip.totalDistance + ' km</span>' +
+            '<span>$' + trip.totalCost + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="saved-trip-body" id="savedBody' + i + '">' +
+          legsHtml +
+          '<div style="margin-top:.8rem;display:flex;gap:.6rem;">' +
+            '<button class="ghost-btn load-trip-btn" data-trip="' + i + '">Load &amp; Edit</button>' +
+            '<button class="ghost-btn danger delete-trip-btn" data-trip="' + i + '">Delete</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }
+    list.innerHTML = html;
+
+    // Toggle expand/collapse
+    list.querySelectorAll('.saved-trip-header').forEach(function(header) {
+      header.addEventListener('click', function() {
+        var body = document.getElementById('savedBody' + header.dataset.trip);
+        body.classList.toggle('open');
+      });
+    });
+
+    // Load trip buttons
+    list.querySelectorAll('.load-trip-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        loadTrip(parseInt(btn.dataset.trip));
+      });
+    });
+
+    // Delete individual trip buttons
+    list.querySelectorAll('.delete-trip-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (confirm('Delete this saved trip?')) {
+          var history = JSON.parse(localStorage.getItem('sc4x4_fuel_trips') || '[]');
+          history.splice(parseInt(btn.dataset.trip), 1);
+          localStorage.setItem('sc4x4_fuel_trips', JSON.stringify(history));
+          renderSavedTrips();
+        }
+      });
+    });
+  }
+
+  /* Load Saved Trip */
+  function loadTrip(index) {
+    var history = JSON.parse(localStorage.getItem('sc4x4_fuel_trips') || '[]');
+    var trip = history[index];
+    if (!trip || !trip.legs) return;
+
+    if (legs.length > 0 && !confirm('This will replace your current legs. Continue?')) return;
+
+    legs = trip.legs.slice();
+    editingIndex = -1;
+    document.getElementById('addLegBtn').textContent = 'Add Leg';
+    document.getElementById('tripName').value = trip.name;
+    renderLegs();
+
+    // Remove from saved history since it's now active
+    history.splice(index, 1);
+    localStorage.setItem('sc4x4_fuel_trips', JSON.stringify(history));
+    renderSavedTrips();
+
+    // Scroll to calculator
+    document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* Clear History */
+  document.getElementById('clearHistoryBtn').addEventListener('click', function() {
+    if (confirm('Clear all saved trips?')) {
+      localStorage.removeItem('sc4x4_fuel_trips');
+      renderSavedTrips();
+    }
+  });
+
+  /* Init */
+  renderSavedTrips();
+</script>
+</body>
+</html>
