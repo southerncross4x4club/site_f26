@@ -11,3 +11,7 @@ Thumbs.db
 # Python
 __pycache__/
 *.pyc
+
+# Local helper scripts (kept on disk for dev/preview, not in repo)
+serve.py
+build_minutes_docx.py
